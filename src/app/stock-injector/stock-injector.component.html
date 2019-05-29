@@ -1,0 +1,7 @@
+<div fxLayoutAlign="start stretch" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="2%" fxLayoutAlign="center">
+    <mat-slider fxFlex="60%" [min]="min" [max]="max" [step]="step" [value]="amount" thumbLabel [tickInterval]="1" (input)="updateSliderAmount($event)"></mat-slider>
+    <mat-chip-list fxFlex="20%">
+        <mat-chip>{{amount}}</mat-chip>
+    </mat-chip-list>
+    <button mat-raised-button fxFlex="20%" (click)="injectStock()">Add</button>
+</div>

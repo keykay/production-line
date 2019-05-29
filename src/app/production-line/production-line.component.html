@@ -1,0 +1,171 @@
+<!-- First Operators -->
+<mat-grid-list [cols]="12" [gutterSize]="12" [style.margin]="'40px'" [rowHeight]="'240px'">
+    <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightblue'" [colspan]="4">
+        <mat-card>
+            <mat-card-title>Steel Stock: {{steelStockAmount}} units</mat-card-title>
+            <mat-card-content>
+                <app-stock-injector [min]="0" [max]="100" [step]="5" (injectStockCallback)="injectSteelStock($event)"></app-stock-injector>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightgreen'" [colspan]="4">
+        <mat-card>
+            <mat-card-title>Ceramic Stock: {{ceramicStockAmount}} units</mat-card-title>
+            <mat-card-content>
+                <app-stock-injector [min]="0" [max]="100" [step]="5" (injectStockCallback)="injectCeramicStock($event)"></app-stock-injector>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2"></mat-grid-tile>
+</mat-grid-list>
+
+<!-- Arrows Down -->
+<mat-grid-list [cols]="12" [gutterSize]="12" [style.margin]="'40px'" [rowHeight]="'40px'">
+    <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    <mat-grid-tile [colspan]="4">
+        <mat-icon>arrow_downward</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4">
+        <mat-icon>arrow_downward</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2"></mat-grid-tile>
+</mat-grid-list>
+
+<!-- Second Operators -->
+<mat-grid-list [cols]="12" [gutterSize]="12" [style.margin]="'40px'" [rowHeight]="'240px'">
+    <mat-grid-tile [style.background]="'lightblue'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Discarded Steel</mat-card-title>
+            <mat-card-content>
+                <dl>
+                    <dt>Last discarded block weight:</dt>
+                    <dd>{{ (lastDiscardedSteelBlock$ | async)?.weight | number:'1.0-2' }}</dd>
+                    <dt>Total discarded weight:</dt>
+                    <dd>{{ steelOperator2$ | async }}</dd>
+                </dl>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightblue'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Kept Steel</mat-card-title>
+            <mat-card-content>
+                <dl>
+                    <dt>Total kept weight:</dt>
+                    <dd>{{ steelOperator3$ | async }} </dd>
+                </dl>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightgreen'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Kept Ceramic</mat-card-title>
+            <mat-card-content>
+                <dl>
+                    <dt>Total kept weight:</dt>
+                    <dd>{{ ceramicOperator3$ | async }} </dd>
+                </dl>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightgreen'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Discarded Ceramic</mat-card-title>
+            <mat-card-content>
+                <dl>
+                    <dt>Last discarded block weight:</dt>
+                    <dd>{{ (lastDiscardedCeramicBlock$ | async)?.weight | number:'1.0-2' }}</dd>
+                    <dt>Total discarded weight:</dt>
+                    <dd>{{ ceramicOperator2$ | async }}</dd>
+                </dl>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<!-- Arrows Down -->
+<mat-grid-list [cols]="12" [gutterSize]="12" [style.margin]="'40px'" [rowHeight]="'40px'">
+    <mat-grid-tile [colspan]="2"></mat-grid-tile>
+    <mat-grid-tile [colspan]="4">
+        <mat-icon>arrow_downward</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4">
+        <mat-icon>arrow_downward</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2"></mat-grid-tile>
+</mat-grid-list>
+
+<!-- Third Operators -->
+<mat-grid-list [cols]="12" [gutterSize]="12" [style.margin]="'40px'" [rowHeight]="'240px'">
+    <mat-grid-tile [style.background]="'lightblue'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Accumulated</mat-card-title>
+            <mat-card-content>
+                <mat-icon *ngFor="let icon of (accumulatedBlocksOfSteel$ | async)">crop_square</mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightblue'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Steel Smelter</mat-card-title>
+            <mat-card-content>
+                <mat-card-content>
+                    <mat-icon [style.color]="'red'" *ngIf="steelSmelterWorking$ | async">whatshot</mat-icon>
+                </mat-card-content>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightgreen'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Ceramic Smelter</mat-card-title>
+            <mat-card-content>
+                <mat-icon [style.color]="'red'" *ngIf="ceramicSmelterWorking$ | async">whatshot</mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'lightgreen'" [colspan]="3">
+        <mat-card>
+            <mat-card-title>Accumulated</mat-card-title>
+            <mat-card-content>
+                <mat-icon *ngFor="let icon of (accumulatedBlocksOfCeramic$ | async)">crop_square</mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<!-- Arrows Down -->
+<mat-grid-list [cols]="12" [gutterSize]="12" [style.margin]="'40px'" [rowHeight]="'40px'">
+    <mat-grid-tile [colspan]="3"></mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3">
+        <mat-icon>subdirectory_arrow_left</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3"></mat-grid-tile>
+
+    <mat-grid-tile [colspan]="4"></mat-grid-tile>
+    <mat-grid-tile [colspan]="4">
+        <mat-icon>arrow_downward</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4"></mat-grid-tile>
+</mat-grid-list>
+
+<!-- Fourth Operators -->
+<mat-grid-list [cols]="12" [gutterSize]="12" [style.margin]="'40px'" [rowHeight]="'240px'">
+    <mat-grid-tile [colspan]="4">
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'#FFC107'" [colspan]="4">
+        <mat-card>
+            <mat-card-title>Assembler</mat-card-title>
+            <mat-card-content>
+                <mat-icon *ngFor="let pan of (totalPans$ | async)">local_cafe</mat-icon>
+                <mat-icon [style.color]="'blue'" *ngIf="assemblerWorking$ | async">settings</mat-icon>
+            </mat-card-content>
+            <mat-card-footer>Total assembled: {{ (totalPans$ | async)?.length }}</mat-card-footer>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4">
+    </mat-grid-tile>
+</mat-grid-list>

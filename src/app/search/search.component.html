@@ -1,0 +1,25 @@
+<div class="example-container">
+  <mat-form-field>
+    <input [formControl]="debounceSearchInputControl" matInput placeholder="Search with debounce">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [formControl]="throttlesearchinputControl" matInput placeholder="Search with throttle">
+  </mat-form-field>
+</div>
+
+<mat-card>Colours</mat-card>
+<table mat-table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let colour of (colours$ | async)">
+      <td>{{colour.name}}</td>
+      <td>{{colour.code}}</td>
+    </tr>
+  </tbody>
+</table>
